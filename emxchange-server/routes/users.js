@@ -7,13 +7,25 @@ const User = mongoose.model('User');
 /* GET users listing. */
 router.post('/', async (req, res, next) => {
 
-  var user = new User();
+  try {
+    
+    const {name, screen_name, organization} = req.body
 
-  user.name = req.body.name;
+    const user = new User({
+      name,
+      screen_name,
+      organization
+    });
 
-  user.save().then(function(){
-    return res.json({user: user});
-  }).catch(next);
+  
+    const saved = await user.save() 
+    
+    res.send(saved)
+
+  } catch(err) {
+    console.log(err);
+    
+  }
 });
 
 module.exports = router;

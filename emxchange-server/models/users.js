@@ -7,6 +7,8 @@ const user = new mongoose.Schema({
     organization: 'string',
     karma: 'number',
     profile_picture: 'string',
+}, {
+  timestamps: true
 })
 
 mongoose.model('User', user);

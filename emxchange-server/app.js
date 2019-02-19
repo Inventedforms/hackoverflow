@@ -11,7 +11,7 @@ console.log(process.env.MONGO_URI);
 const app = express();
 mongoose.connect(process.env.MONGO_URI)
 
-var User = require('./models/users.js');
+const User = require('./models/users.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
