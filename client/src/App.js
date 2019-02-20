@@ -16,10 +16,10 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route path='/' component={Login}/>
+                    <Route path='/' exact component={Login}/>
                     <Route path='/question' component={Question}/>
-                    <Route path='/404' component={PageNotFound}/>
-                    <Route path='/profile' exact component={Profile}/>
+                    <Route path='/profile/:userId' component={Profile}/>
+                    <Route  component={PageNotFound}/>
                 </Switch>
             </BrowserRouter>
         );
