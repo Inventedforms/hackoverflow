@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
+import { Image, Container, Row, Col, Card } from 'react-bootstrap';
 
 import "./UserInfo.css";
 
@@ -26,28 +26,24 @@ export default class UserInfo extends Component {
                                     <h1>{this.props.name}</h1>
                                 </Row>
                                 <Row>
-                                    <InputGroup className="UserInfoField">
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text id="username">Username</InputGroup.Text>
-                                        </InputGroup.Prepend>
-                                        <FormControl
-                                            placeholder={this.props.username}
-                                            aria-label="Username"
-                                            aria-describedby="username"
-                                        />
-                                    </InputGroup>
+                                    <Card className="UserInfoCard">
+                                        <Card.Header as="h5">Username</Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                {this.props.username}
+                                            </Card.Title>
+                                        </Card.Body>
+                                    </Card>
                                 </Row>
                                 <Row>
-                                    <InputGroup className="UserInfoField">
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text id="organization">Organization</InputGroup.Text>
-                                        </InputGroup.Prepend>
-                                        <FormControl
-                                            placeholder={this.props.username}
-                                            aria-label="Organization"
-                                            aria-describedby="organization"
-                                        />
-                                    </InputGroup>
+                                    <Card className="UserInfoCard">
+                                        <Card.Header as="h5">Organization</Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                {this.props.organization}
+                                            </Card.Title>
+                                        </Card.Body>
+                                    </Card>
                                 </Row>
                             </Container>
                         </Col>
