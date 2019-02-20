@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const thread = new mongoose.Schema({
     header: 'string',
-    creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     body: 'string',
     category: 'string',
     views: { type: Number, default: 0 },
@@ -11,26 +11,26 @@ const thread = new mongoose.Schema({
     karma: { type: Number, default: 0 },
     up: ['string'],
     down: ['string'],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-    answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
-    acceptedAnswer: { type: Schema.Types.ObjectId, ref: 'Answer' }
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    answers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Answer' }],
+    acceptedAnswer: { type: mongoose.Schema.Types.ObjectId, ref: 'Answer' }
 }, {
   timestamps: true
 })
 
 const answer = new mongoose.Schema({
-    creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     body: 'string',
     karma: { type: Number, default: 0 },
     up: ['string'],
     down: ['string'],
-    comments: { type: Schema.Types.ObjectId, ref: 'Comment' },
+    comments: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },
     isAcceptedAnswer: {type: Boolean, default: false},
 
 });
 
 const comment = new mongoose.Schema({
-    creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     body: 'string',
     karma: { type: Number, default: 0 },
     up: ['string'],
