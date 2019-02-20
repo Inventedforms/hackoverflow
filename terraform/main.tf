@@ -4,6 +4,15 @@ provider "aws" {
   profile                 = "em-hackathon-dev"
 }
 
+module application_elb {
+  source = "./modules/emxchange-application-elb/"
+  base_dns = "${var.base_dns}"
+  dns_prefix = "${var.dns_prefix}"
+  availability_zone = "${var.availability_zone}"
+  instance_id = "${var.instance_id}"
+  i_id        = "${module.auto_scaling_group.i_id}"
+  security_group = "${module.elb_security_group.id}"
+}
 
 module "ec2_security_group" {
   source = "./modules/emxchange-security-groups/ec2-security-groups/"
@@ -11,6 +20,10 @@ module "ec2_security_group" {
 
 module "efs_security_group" {
   source = "./modules/emxchange-security-groups/efs-mount-target-security-groups"
+}
+
+module "elb_security_group" {
+  source = "./modules/emxchange-security-groups/elb-security-groups"
 }
 
 data "aws_subnet" "selected" {
