@@ -1,19 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const { check } = require('express-validator/check');
 
 const Thread = mongoose.model('Thread');
 const Answer = mongoose.model('Answer');
+const Comment = mongoose.model('Comment');
+const User = mongoose.model('User');
+
+var validators = [
+  check('creator').custom(value =>{
+    return User.findById(value).then(user =>{
+      if (!user) {
+        return Promise.reject('Invalid user');
+    }});
+  }),
+  check('header').exists(),
+  check('body').exists(),
+  check('category').exists()]
 
 /* GET thread, without parameter we get all threads.
     e.g. /threads/threadId?page=5&tags=eng,offtopic
 */
-router.get('/:threadId?', async (req, res, next) => {
+router.get('/:threadId?',
+async (req, res, next) => {
   const threadId = req.params.threadId;
   if(threadId != null){
     // send back whole thread
     await Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
+      Thread.update(
+        {_id: threadId}, 
+        {$set: {'views': thread.views + 1}}, )
       res.json(thread);
     });
   }
@@ -21,18 +39,17 @@ router.get('/:threadId?', async (req, res, next) => {
     // else search all threads matching tags (if applicable) and return header info
     // assume tags is comma-delimited
     // default fetch first 50
-    console.log("hello");
     var tags = req.query.tags;
     var page = req.query.page != null ? req.query.page : 1;
-    var category = req.query.category != null ? req.query.category : '*';
-    Thread.find({category:category}, 'header views karma creator tags', {limit: 50, sort: '-createdAt'}, function (err, threads) {
+    var category = req.query.category != null ? {category:req.query.category} : null;
+    Thread.find(category, 'header views karma creator tags', {limit: 50, sort: '-createdAt'}, function (err, threads) {
       if (err) return handleError(err);
       res.json(threads);
      });
   }
 });
 
-router.post('/', async (req, res, next )=>{
+router.post('/', validators, async (req, res, next )=>{
   try {
 
     const {header, creator, category, body, organization} = req.body
@@ -55,7 +72,7 @@ router.post('/', async (req, res, next )=>{
 });
 
 // update thread body/header or karma. nothing else can be added
-router.patch('/:threadId', async (req, res, next) => {
+router.patch('/:threadId',validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findOneAndUpdate({_id:threadId}, req.body, function (err, thread) {
       if (err) return handleError(err);
@@ -65,7 +82,7 @@ router.patch('/:threadId', async (req, res, next) => {
 });
 
 // add an answer
-router.post('/:threadId/answers', async (req, res, next) => {
+router.post('/:threadId/answers', validators.slice(), async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
@@ -80,11 +97,8 @@ router.post('/:threadId/answers', async (req, res, next) => {
 });
 
 router.patch('/:threadId/answers/:answerId', async (req, res, next) => {
-  if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
-      if (err) return handleError(err);
-      thread.answers.push(req.body);
-    });
+  if(req.params.threadId != null && req.params.answerId != null){
+    Answer.findOneAndUpdate(req.params.answerId, req.body);
   
   }
   else {
@@ -92,10 +106,11 @@ router.patch('/:threadId/answers/:answerId', async (req, res, next) => {
   }
 });
 
-router.post('/:threadId/comments', async (req, res, next) => {
+router.post('/:threadId/comments',[], async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
+      Comment.save(req.body);
       thread.comments.push();
     });
   
@@ -105,11 +120,8 @@ router.post('/:threadId/comments', async (req, res, next) => {
   }
 });
 router.patch('/:threadId/comments/:commentId', async (req, res, next) => {
-  if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
-      if (err) return handleError(err);
-      thread.answers.push(req.body);
-    });
+  if(req.params.threadId != null && req.params.commentId != null){
+    Comment.findOneAndUpdate(req.params.commentId, req.body);
   
   }
   else {
