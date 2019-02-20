@@ -1,4 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
+=======
+import { Link } from 'react-router-dom'
+
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
 import './SingleQuestion.scss';
 import CommonService from './../../../common/services/CommonService';
 
@@ -9,7 +14,11 @@ const SingleQuestion = ({question, onClick}) => {
             <div className='questionInfo'>
                 <div className='infoBox'>
                     <div className='number'>
+<<<<<<< HEAD
                         {question.up.length}
+=======
+                        {question.up.length - question.down.length}
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
                     </div>
 
                     <div className='info'>
@@ -58,7 +67,12 @@ const SingleQuestion = ({question, onClick}) => {
             </div>
 
             <div className='ownerInfo'>
+<<<<<<< HEAD
                 {question.creator.name} created at {CommonService.dateHandler(question.createdAt)}
+=======
+                <a href={`slack://user?team=T2YPRNTU0&id=${question.creator.slack_id}`}>{question.creator.name} </a>
+                    created at {CommonService.dateHandler(question.createdAt)}
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
             </div>
         </div>
     );

@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import Header from './../Header/Header';
 import ApiService from './../../common/services/ApiService';
 import SingleQuestion from './SingleQuestion/SingleQuestion';
+<<<<<<< HEAD
 import QuestionDetails from './QuestionDetails';
+=======
+import QuestionDetails from './QuestionDetail/QuestionDetails';
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
 
 import './Question.scss';
 
@@ -30,7 +34,10 @@ class Question extends Component {
     componentDidMount() {
         if (this.state.isSingleQuestion) {
             ApiService.getQuestionById(this.state.singleQuestionId).then((result) => {
+<<<<<<< HEAD
                 console.log(result);
+=======
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
                 this.setState({
                     ready: true,
                     singleQuestionData: result
@@ -49,6 +56,7 @@ class Question extends Component {
                 console.log(error);
             })
         }
+<<<<<<< HEAD
 
     }
 
@@ -90,6 +98,45 @@ class Question extends Component {
                             </div>
                         )
                     }
+=======
+
+    }
+
+    questionDetailHandler = (id) => {
+        console.log(id)
+        ApiService.getQuestionById(id).then((result) => {
+            this.setState({
+                singleQuestionData: result,
+                isSingleQuestion: true,
+                singleQuestionId: id
+            });
+        }).catch((error) => {
+            console.log('====', error);
+        })
+    };
+
+    render() {
+        if (this.state.ready) {
+            return (
+                <React.Fragment>
+                    <Header/>
+                    <div className='questionContainer'>
+                        {
+                            this.state.isSingleQuestion ? (
+                                <QuestionDetails questionData={this.state.singleQuestionData}/>
+                            ) : (
+                                this.state.questionArray.map((question) => {
+                                    return <SingleQuestion
+                                        question={question}
+                                        key={question._id}
+                                        onClick={() => {
+                                            this.questionDetailHandler(question._id)
+                                        }}/>
+                                })
+                            )
+                        }
+                    </div>
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
 
                 </React.Fragment>
             );

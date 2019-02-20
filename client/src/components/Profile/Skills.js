@@ -33,6 +33,7 @@ export default class Skills extends Component {
                 })
                 console.log(currentAvailableTags);
 
+<<<<<<< HEAD
                 // let userTags = [
                 //     "EPC",
                 //     "EBS",
@@ -51,12 +52,33 @@ export default class Skills extends Component {
                 // this.setState({selectedTags: userTags});
                 // this.setState({availableTags: currentAvailableTags});
                 // console.log(this.state);
+=======
+                let userTags = [
+                    "EPC",
+                    "EBS",
+                    "Jenkins"
+                ];
+        
+                userTags.forEach(element => {
+                    let index = currentAvailableTags.indexOf(element);
+                    
+                    if (index > -1) {
+                        currentAvailableTags.splice(index, 1);
+                    }
+                })
+                
+            
+                this.setState({selectedTags: userTags});
+                this.setState({availableTags: currentAvailableTags});
+                console.log(this.state);
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
             })
 
         
 
 
         // Get tags already associated with user - and remove from available tags
+<<<<<<< HEAD
         let userUrl = 'http://localhost:5000/users/5c6d11eef0de7e4d66b1c9e4';
 
         fetch(userUrl)  
@@ -79,6 +101,30 @@ export default class Skills extends Component {
 
                 console.log(this.state);
             })
+=======
+        // let userUrl = 'http://localhost:5000/users/5c6d11eef0de7e4d66b1c9e4';
+
+        // fetch(userUrl)  
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         console.log(result);
+        //         // let userTags = [];
+        //         // result.tags.forEach(element => {
+        //         //     userTags.push(element);
+                    
+        //         //     let index = currentAvailableTags.indexOf[element];
+        //         //     if (index > -1) {
+        //         //         delete currentAvailableTags[index];
+        //         //     }
+        //         // });
+                
+            
+        //         // this.setState({selectedTags: userTags});
+        //         // this.setState({availableTags: currentAvailableTags});
+
+        //         // console.log(this.state);
+        //     })
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
     }
 
     addSkill(selected) {
@@ -99,12 +145,15 @@ export default class Skills extends Component {
 
         this.setState({availableTags: newAvailableTags});
         this.typeahead.getInstance().clear();
+<<<<<<< HEAD
     }
 
     removeSkill(selected) {
         console.log(selected);
 
 
+=======
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
     }
 
     render() {
@@ -112,12 +161,15 @@ export default class Skills extends Component {
             
             <div className="Skills">
                 <Container>
-                    <Row>
+                    <Row className = "search-bar">
                         <Col sm={12}>
                             <Typeahead
                                 ref={(typeahead) => this.typeahead = typeahead}
                                 bsSize = "large"
+<<<<<<< HEAD
                                 align = "left"
+=======
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
                                 labelKey="name"
                                 multiple= {false}
                                 options={this.state.availableTags}
@@ -130,11 +182,15 @@ export default class Skills extends Component {
                     </Row>
                     {
                         this.state.selectedTags.map((item) => (
+<<<<<<< HEAD
                             <Skill 
                                 key={item} 
                                 skill={item}
                                 closeHandler = {this.removeSkill}
                             />
+=======
+                            <Skill key={item} skill={item}/>
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
                         ))
                     }
                 </Container>

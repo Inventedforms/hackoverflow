@@ -38,6 +38,23 @@ class ApiService {
         }).then(resp => resp.json());
     }
 
+<<<<<<< HEAD
+=======
+    vote(id, type, voteType) {
+        const url = `http://localhost:5000/${type}/${id}/vote`;
+
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                voteType: voteType
+            }),
+            headers: {
+                "user_id": '5c6d1c4f57a5cf4500863fc0',//userId, owner
+                "Content-Type": "application/json"
+            }
+        }).then(resp => resp.json());
+    }
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
 }
 
 export default new ApiService();

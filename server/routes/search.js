@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose')
 
 const Thread = mongoose.model('Thread');
-router.post('/:searchText', async (req, res, next) => {
+router.get('/:searchText', async (req, res, next) => {
 
     try {
         Thread.find(

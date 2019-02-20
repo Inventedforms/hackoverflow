@@ -5,7 +5,11 @@ write_files:
      version: '2'
      services:
        server:
+<<<<<<< HEAD
          image: jrodstein2/emxchange:server-1.0
+=======
+         image: jrodstein2/emxchange:server-${APP_VERSION}
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
          ports:
            - "5000:5000"
          # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
@@ -15,7 +19,11 @@ write_files:
          depends_on:
            - db
        client:
+<<<<<<< HEAD
          image: jrodstein2/emxchange:client-1.0
+=======
+         image: jrodstein2/emxchange:client-${APP_VERSION}
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
          depends_on:
            - server
          ports:

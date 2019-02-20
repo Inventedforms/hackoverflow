@@ -11,3 +11,7 @@ port                      = "5000"
 availability_zone         = "us-west-2a"
 template_name             = "team-2-emexchange"
 profile                   = "em-hackathon-dev"
+<<<<<<< HEAD
+=======
+app_version               = "1.0"
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
