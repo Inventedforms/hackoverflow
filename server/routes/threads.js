@@ -27,7 +27,11 @@ async (req, res, next) => {
   const threadId = req.params.threadId;
   if(threadId != null){
     // send back whole thread
-    await Thread.findById(threadId, function (err, thread) {
+    await Thread.findById(threadId)
+    .populate('creator')
+    .populate('answers')
+    .populate('comments')
+    .exec(function (err, thread) {
       if (err) return handleError(err);
       Thread.update(
         {_id: threadId}, 
@@ -42,7 +46,12 @@ async (req, res, next) => {
     var tags = req.query.tags;
     var page = req.query.page != null ? req.query.page : 1;
     var category = req.query.category != null ? {category:req.query.category} : null;
-    Thread.find(category, '', {limit: 50, sort: '-createdAt'}, function (err, threads) {
+
+    Thread.find(category, '', {limit: 50, sort: '-createdAt'})
+    .populate('creator')
+    .populate('answers')
+    .populate('comments')
+    .exec(function (err, threads) {
       if (err) return handleError(err);
       res.json(threads);
      });
@@ -84,10 +93,17 @@ router.patch('/:threadId',validators.slice(1, 3), async (req, res, next) => {
 // add an answer
 router.post('/:threadId/answers', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
+    Thread.findById(req.params.threadId, async (err, thread)=> {
       if (err) return handleError(err);
-      Answer.save(req.body);
-      thread.answers.push(req.body);
+      const {creator, body}= req.body;
+      const comment = new Answer({creator, body})
+      saved = await comment.save();
+      thread.answers.push(saved);
+      console.log(thread);
+      saved = await Thread.findOneAndUpdate({_id:req.params.threadId}, {answers: thread.answers}, function(err, result){
+        if(err) return handleError(err);
+        res.json(result)
+      })
     });
   }
   else {
@@ -98,7 +114,6 @@ router.post('/:threadId/answers', validators.slice(1, 3), async (req, res, next)
 router.patch('/:threadId/answers/:answerId', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null && req.params.answerId != null){
     Answer.findOneAndUpdate(req.params.answerId, req.body);
-  
   }
   else {
     res.err("Please specify a thread ID");
@@ -107,10 +122,17 @@ router.patch('/:threadId/answers/:answerId', validators.slice(1, 3), async (req,
 
 router.post('/:threadId/comments',validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
+    Thread.findById(req.params.threadId, async (err, thread)=> {
       if (err) return handleError(err);
-      Comment.save(req.body);
-      thread.comments.push();
+      const {creator, body}= req.body;
+      const comment = new Comment({creator, body})
+      saved = await comment.save();
+      thread.comments.push(saved);
+      console.log(thread);
+      saved = await Thread.findOneAndUpdate({_id:req.params.threadId}, {comments: thread.comments}, function(err, result){
+        if(err) return handleError(err);
+        res.json(result)
+      })
     });
   
   }
