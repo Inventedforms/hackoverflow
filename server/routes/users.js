@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.patch('/:id,', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   try{
     User.findOneAndUpdate({_id: req.params.id}, req.body, function (err, thread) {
         res.json(req.body);
