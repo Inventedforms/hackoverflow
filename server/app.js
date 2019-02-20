@@ -6,13 +6,16 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
 
-console.log(process.env.MONGO_URI);
+const db_name = 'emxchange'
+const db_url = `${process.env.MONGO_URI}/${db_name}```
+console.log(`Connected to db url: ${db_url}`);
 
 const app = express();
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(db_url)
 
 const User = require('./models/users.js');
 const Thread = require('./models/threads.js');
+const Tag = require('./models/tags.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
