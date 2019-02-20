@@ -13,6 +13,25 @@ class QuestionCardSingle extends Component {
         }
     }
 
+    handleVote(voteType) {
+        console.log(voteType);
+        
+        const url = `http://localhost:5000/${this.state.type}s/${this.state.thread._id.$oid}/vote`
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                voteType: voteType
+            }),
+            headers: {
+                "user_id": "5c6d1c4f57a5cf4500863fc0",
+                "Content-Type": "application/json"
+            }
+        }).then((data) => console.log(data))
+
+    }
+    
+
     render() {
         let heading = ""
         if (this.state.type == "thread") {
@@ -24,14 +43,14 @@ class QuestionCardSingle extends Component {
             <Header/>
                 {heading}
                 <p>{this.state.thread.body}</p>
-                <div>
-                    <MdArrowUpward size={70}/>
+                <div onClick={() => {this.handleVote('up')}}>
+                    <MdArrowUpward size={70} />
                 </div>
                 <div>
                     {this.state.thread.up.length - this.state.thread.down.length}
                 </div>
-                <div>
-                    <MdArrowDownward size={70}/>
+                <div onClick={() => {this.handleVote('down')}}>
+                    <MdArrowDownward size={70} />
                 </div>
             </React.Fragment>
         );

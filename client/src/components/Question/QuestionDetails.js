@@ -7,7 +7,10 @@ class QuestionDetails extends Component {
         super(props);
 
         var fakeData = {
-            header: "how does react work",
+            _id: {
+                $oid: "5c6d2a469b824d252cc1636e"
+              },
+            header: "how does react work",  
             body: "i need help",
             up: [1, 2],
             down: [1,2,3,4,5],
