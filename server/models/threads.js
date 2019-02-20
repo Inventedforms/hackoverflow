@@ -19,7 +19,7 @@ const thread = new mongoose.Schema({
 }, {
   timestamps: true
 })
-thread.index({header: 'text', body: 'text'});
+thread.index({header: 'text', body: 'text'}, {name: 'threadIndex', weights: {header: 10, body: 4}});
 
 const answer = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -31,7 +31,7 @@ const answer = new mongoose.Schema({
     lastEdited:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 });
-answer.index({header: 'text', body: 'text'});
+answer.index({header: 'text', body: 'text'}, {name: 'threadIndex', weights: {header: 10, body: 4}});
 
 const comment = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -42,7 +42,7 @@ const comment = new mongoose.Schema({
     lastEdited:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 });
-comment.index({header: 'text', body: 'text'});
+comment.index({header: 'text', body: 'text'}, {name: 'threadIndex', weights: {header: 10, body: 4}});
 
 mongoose.model('Answer', answer);
 mongoose.model('Comment', comment);
