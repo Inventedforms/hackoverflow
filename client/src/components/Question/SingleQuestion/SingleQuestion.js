@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 import './SingleQuestion.scss';
 import CommonService from './../../../common/services/CommonService';
 
@@ -58,7 +60,8 @@ const SingleQuestion = ({question, onClick}) => {
             </div>
 
             <div className='ownerInfo'>
-                {question.creator.name} created at {CommonService.dateHandler(question.createdAt)}
+                <a href={`slack://user?team=T2YPRNTU0&id=${question.creator.slack_id}`}>{question.creator.name} </a> 
+                    created at {CommonService.dateHandler(question.createdAt)}
             </div>
         </div>
     );
