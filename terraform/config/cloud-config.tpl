@@ -5,28 +5,17 @@ write_files:
      version: '2'
      services:
        server:
-         build:
-           context: ./server/
-         command: /usr/app/node_modules/.bin/nodemon bin/www
-         volumes:
-           - ./server/:/usr/app
-           - /usr/app/node_modules
+         image: jrodstein2/emxchange:server-1.0
          ports:
            - "5000:5000"
          # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
          environment:
-           - MONGO_URI=${MONGO_URI}
-           - SKIP_PREFLIGHT_CHECK=${SKIP_PREFLIGHT_CHECK}
-           - REACT_PORT=${PORT}
+           - MONGO_URI=mongodb://db:27017
+           - PORT=5000
          depends_on:
            - db
        client:
-         build:
-           context: ./client/
-         command: npm start
-         volumes:
-           - ./client/:/usr/app
-           - /usr/app/node_modules
+         image: jrodstein2/emxchange:client-1.0
          depends_on:
            - server
          ports:

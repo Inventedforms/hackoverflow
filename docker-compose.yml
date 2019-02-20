@@ -1,8 +1,9 @@
 version: '2'
 services:
   server:
-    build:
-      context: ./server/
+    image: jrodstein2/emxchange:server-1.0
+    #build:
+    #  context: ./server/
     command: /usr/app/node_modules/.bin/nodemon bin/www
     volumes:
       - ./server/:/usr/app
@@ -16,8 +17,9 @@ services:
     depends_on:
       - db
   client:
-    build:
-      context: ./client/
+    image: jrodstein2/emxchange:client-1.0
+    #build:
+    #  context: ./client/
     command: npm start
     volumes:
       - ./client/:/usr/app

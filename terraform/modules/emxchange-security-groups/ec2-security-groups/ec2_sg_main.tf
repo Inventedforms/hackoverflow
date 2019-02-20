@@ -26,6 +26,14 @@ resource "aws_security_group" "http_https_ssh" {
     cidr_blocks       = ["0.0.0.0/0"]
   }
 
+  # https
+  ingress {
+    from_port         = 3000
+    to_port           = 3000
+    protocol          = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+  }
+
   # nfs for efs
   ingress {
     from_port         = 2049
