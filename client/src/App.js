@@ -9,7 +9,7 @@ import Profile from './components/Profile/Profile';
 import Login from './components/Authentication/Login';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import Spinner from './components/Spinner/Spinner';
-import QuestionDetails from './components/Question/QuestionDetails'
+import QuestionDetails from './components/Question/QuestionDetail/QuestionDetails'
 
 class App extends Component {
 

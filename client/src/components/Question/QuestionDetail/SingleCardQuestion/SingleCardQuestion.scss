@@ -1,0 +1,30 @@
+.SingleCardQuestionContainer {
+  display: flex;
+  padding: 5px 0;
+  margin: 0 10px;
+  border-bottom: 1px solid lightgray;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100px;
+}
+
+.voteContainer {
+  width: 80px;
+  height: 89px;
+  display: inline;
+  position: relative;
+
+  .voteInfo {
+    width: 100%;
+    height: 33.3%;
+    display: block;
+    text-align: center;
+    line-height: 29.3px;
+    cursor: pointer;
+  }
+
+}
+
+.contentContainer {
+  width: 100%;
+}
