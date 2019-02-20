@@ -11,5 +11,5 @@ variable "template_name"          {}
 variable "instance_id"            {}
 variable "availability_zone"      {}
 variable "key_name"               {}
-variable "availability_zone"      {}
-variable "template_name"          {}
+variable "data_mount"             { default = "/mnt/efs" }
+variable "file_system_name"       { default = "emxchange_efs" }
