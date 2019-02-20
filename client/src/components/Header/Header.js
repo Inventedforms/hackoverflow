@@ -14,7 +14,7 @@ const Header = () => {
             <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-sm-4'>
-                        <img src={logo} className='logo'/>
+                        <img src={logo} className='logo' alt=''/>
                     </div>
 
                     <div className='col-sm-6'>

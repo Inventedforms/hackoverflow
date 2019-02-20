@@ -1,9 +1,11 @@
 import React from 'react';
 import './SingleQuestion.scss';
+import CommonService from './../../../common/services/CommonService';
 
-const SingleQuestion = ({question}) => {
+
+const SingleQuestion = ({question, onClick}) => {
     return (
-        <div className='singleQuestionContainer'>
+        <div className='singleQuestionContainer' onClick={onClick}>
             <div className='questionInfo'>
                 <div className='infoBox'>
                     <div className='number'>
@@ -37,11 +39,26 @@ const SingleQuestion = ({question}) => {
             </div>
 
             <div className='questionTitle'>
+                <div className='title'>
+                    {question.header}
+                </div>
 
+
+                <div className='tagList'>
+                    {
+                        question.tags.map((tag, index) => {
+                            if (index < 5) {
+                                return <div key={tag} className='tag'>{tag}</div>
+                            } else {
+                                return null;
+                            }
+                        })
+                    }
+                </div>
             </div>
 
             <div className='ownerInfo'>
-                Alex
+                {question.creator.name} created at {CommonService.dateHandler(question.createdAt)}
             </div>
         </div>
     );
