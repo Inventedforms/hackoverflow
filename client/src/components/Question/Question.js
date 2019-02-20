@@ -1,43 +1,49 @@
 import React, {Component} from 'react';
 import Header from './../Header/Header';
-import SingleQuestion from './SingleQuestion'
+import ApiService from './../../common/services/ApiService';
+import SingleQuestion from './SingleQuestion/SingleQuestion';
+
+import './Question.scss';
 
 class Question extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-        }
+            questionArray: []
+        };
     }
 
     componentDidMount() {
-
-        fetch('http://localhost:5000/threads')
-        .then(res => res.json())
-        .then(json => {
-            this.setState({ threads: json })
-        });
-       
+        ApiService.getAllQuestion().then((result) => {
+            console.log(result);
+            this.setState({
+                questionArray: result
+            });
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     render() {
-        if (this.state.threads) {
-            return (
-                <React.Fragment>
+        return (
+            <React.Fragment>
                 <Header/>
-                    <div style={{marginTop: '60px'}}>
-                        <SingleQuestion threads={this.state.threads} />
-                    </div>
-                </React.Fragment>
-            );
-    
-        } else {
-            return (
-                <React.Fragment>
-                <Header/>
-                <div></div>
-                </React.Fragment>
-            )
-        }
+
+                {
+                    this.state.questionArray.length !== 0 ? (
+                        <div className='questionContainer'>
+                            {
+                                this.state.questionArray.map((question) => {
+                                    return <SingleQuestion question={question} key={question._id}/>
+                                })
+                            }
+                        </div>
+                    ) : ''
+                }
+
+            </React.Fragment>
+        );
     }
 }
 

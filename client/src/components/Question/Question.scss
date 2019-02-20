@@ -1,0 +1,12 @@
+.questionContainer {
+  margin-top: 60px;
+  width: 80%;
+  overflow: auto;
+  display: block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  box-sizing: border-box;
+  border-left: lightgray 1px solid;
+  border-right: lightgray 1px solid;
+}
