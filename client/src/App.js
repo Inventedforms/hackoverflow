@@ -9,6 +9,7 @@ import Profile from './components/Profile/Profile';
 import Login from './components/Authentication/Login';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import Spinner from './components/Spinner/Spinner';
+import QuestionDetails from './components/Question/QuestionDetails'
 
 class App extends Component {
 
@@ -45,6 +46,8 @@ class App extends Component {
                                             component={() => <Question spinnerData={this.changeSpinnerState}/>}/>
                             <ProtectedRoute path='/profile/:userId'
                                             component={() => <Profile spinnerData={this.changeSpinnerState}/>}/>
+                            <ProtectedRoute path='/sandbox'
+                                            component={() => <QuestionDetails spinnerData={this.changeSpinnerState}/>}/>
                             <Route component={PageNotFound}/>
                         </Switch>
                     </BrowserRouter>
