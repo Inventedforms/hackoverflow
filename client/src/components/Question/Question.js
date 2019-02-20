@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Profile extends Component{
+class Question extends Component {
     constructor(props) {
         super(props);
 
@@ -9,11 +9,12 @@ class Profile extends Component{
     render() {
         return (
             <div>
-                This is profile
+                This is question
             </div>
         );
-    }
 
+
+    }
 }
 
-export default Profile;
+export default Question;
