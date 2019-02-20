@@ -3,11 +3,20 @@ class ApiService {
 
     }
 
-    simpleApi() {
-        let url = 'https://api.github.com/userss/AlexHHsiao';
+    getUserById(userId) {
+        let url = 'http://977051ba.ngrok.io/users/' + userId;
+        console.log(url);
+
         return fetch(url, {
-            method: 'GET'
-        }).then(resp => resp.json());
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => {
+            
+            resp.json();
+            
+        });
     }
 }
 

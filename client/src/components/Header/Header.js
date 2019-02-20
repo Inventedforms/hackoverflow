@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.scss';
+import logo from './../../common/images/logo.png';
 
 const gotoProfile = () => {
     console.log('aaa')
@@ -12,8 +13,8 @@ const Header = () => {
         <div className='headerContainer'>
             <div className='container-fluid'>
                 <div className='row'>
-                    <div className='col-sm-3'>
-                        img here
+                    <div className='col-sm-4'>
+                        <img src={logo} className='logo'/>
                     </div>
 
                     <div className='col-sm-6'>
@@ -26,7 +27,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className='col-sm-3'>
+                    <div className='col-sm-2'>
                         <div className='profileImg' onClick={gotoProfile}>
 
                         </div>
