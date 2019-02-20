@@ -55,7 +55,7 @@ data "template_file" "config" {
     SKIP_PREFLIGHT_CHECK="${var.skip_preflight_check}"
     PORT="${var.port}"
     DATA_MOUNT="${var.data_mount}"
-    MOUNT_IP="${aws_efs_mount_target.emxchange_efs_mount_target.ip_address}""
+    MOUNT_IP="${aws_efs_mount_target.emxchange_efs_mount_target.ip_address}"
   }
 
   #depends_on = ["aws_efs_mount_target.<name_of_resource>"]
