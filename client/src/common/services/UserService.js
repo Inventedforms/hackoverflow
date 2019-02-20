@@ -11,7 +11,7 @@ class UserService {
 
     initialize() {
         this.isLogin = true;
-        this.userToken = '';
+        this.userId = '5c6d11eef0de7e4d66b1c9e4';
         this.userData = {};
     }
 
