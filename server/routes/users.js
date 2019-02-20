@@ -3,7 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose')
 
 const User = mongoose.model('User');
-const request = require('request');
 
 /* GET users listing. */
 router.post('/', async (req, res, next) => {
