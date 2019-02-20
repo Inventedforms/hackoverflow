@@ -1,4 +1,14 @@
 #!/bin/bash
+<<<<<<< HEAD
+
+cd ./client
+pwd
+docker build -t jrodstein2/emxchange:client-1.0 . && docker push jrodstein2/emxchange:client-1.0
+
+cd ../server
+pwd
+docker build -t jrodstein2/emxchange:server-1.0 . && docker push jrodstein2/emxchange:server-1.0
+=======
 # Deploy script runs nessecary terraform commands to tear down and stand up
 # the slate-server and required resources
 #
@@ -38,3 +48,4 @@ then
   cd ../server
   docker build -t jrodstein2/emxchange:server-$VERSION . && docker push jrodstein2/emxchange:server-$VERSION
 fi
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08

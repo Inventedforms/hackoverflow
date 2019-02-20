@@ -69,7 +69,10 @@ data "template_file" "config" {
     PORT="${var.port}"
     DATA_MOUNT="${var.data_mount}"
     MOUNT_IP="${aws_efs_mount_target.emxchange_efs_mount_target.ip_address}"
+<<<<<<< HEAD
+=======
     APP_VERSION="${var.app_version}"
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
   }
 
   #depends_on = ["aws_efs_mount_target.<name_of_resource>"]

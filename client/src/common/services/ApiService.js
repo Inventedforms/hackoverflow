@@ -38,6 +38,8 @@ class ApiService {
         }).then(resp => resp.json());
     }
 
+<<<<<<< HEAD
+=======
     vote(id, type, voteType) {
         const url = `http://localhost:5000/${type}/${id}/vote`;
 
@@ -52,6 +54,7 @@ class ApiService {
             }
         }).then(resp => resp.json());
     }
+>>>>>>> cbaf7c3615dd829f1658d20e61dcb720a0ea3d08
 }
 
 export default new ApiService();
