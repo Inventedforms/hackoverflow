@@ -81,6 +81,39 @@ class Question extends Component {
                                             this.questionDetailHandler(question._id)
                                         }}/>
                                 })
+
+
+                            )
+                        }
+
+                        {
+                            this.state.isSingleQuestion ? '' : (
+                                <table className="table" style={{marginTop: '30px'}}>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Karma</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <td>Mark</td>
+                                        <td>500</td>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <td>Jacob</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <td>Larry</td>
+                                        <td>3</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             )
                         }
                     </div>

@@ -23,6 +23,15 @@ export default class Header extends Component {
         })
     };
 
+    gotoQuestion = () => {
+        if (window.location.href.indexOf("question") > -1) {
+            return;
+        }
+
+        this.setState({
+            navToQuestion: true
+        })
+    };
 
     render() {
 
@@ -32,12 +41,18 @@ export default class Header extends Component {
             )
         }
 
+        if (this.state.navToQuestion) {
+            return (
+                <Redirect to='/question'/>
+            )
+        }
+
 
         return (
             <div className='headerContainer'>
                 <div className='container-fluid'>
                     <div className='row'>
-                        <div className='col-sm-4'>
+                        <div className='col-sm-4' onClick={this.gotoQuestion}>
                             <img src={logo} className='logo' alt=''/>
                         </div>
 
