@@ -24,8 +24,20 @@ class ApiService {
 
         return fetch(url, {
             method: 'GET'
-        }).then(resp => resp.json())
+        }).then(resp => resp.json());
     }
+
+    getQuestionById(id) {
+        let url = 'http://localhost:5000/threads/' + id;
+
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json());
+    }
+
 }
 
 export default new ApiService();

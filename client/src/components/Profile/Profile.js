@@ -10,10 +10,10 @@ import "./Profile.css";
 export default class Profile extends Component{
     constructor(props) {
         super(props);
-       // console.log('user id here', this.props.match.params.userId)
+        //console.log('user id here', this.props.match.params.userId)
 
-        
-    
+
+
     this.state = {
             displayName: "Rishabh Prakash",
             username: "rprakash",
@@ -28,18 +28,18 @@ export default class Profile extends Component{
 
     componentDidMount() {
 
-        
-        let url = 'http://977051ba.ngrok.io/users/5c6c66915abceabc53933c96' 
-        
+
+        let url = 'http://977051ba.ngrok.io/users/5c6c66915abceabc53933c96'
+
         fetch(url, {
             method: 'GET',
             header: {
                 'Content-Type': 'application/json'
             }
         })  .then(res => res.json())
-            .then(json => { 
+            .then(json => {
                 console.log(json);
-                this.setState({ 
+                this.setState({
                     name: json.name,
                     displayName: json.screen_name,
                     organization: json.organization,
