@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Image, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
 
+import "./UserInfo.css";
+
 export default class UserInfo extends Component {
     constructor(props) {
         super(props)
@@ -8,11 +10,11 @@ export default class UserInfo extends Component {
 
     render() {
         return (
-            <div>
+            <div className="UserInfo">
                 <Container>
                     <Row>
-                        <Col sm={4}>
-                            <Image
+                        <Col sm={4} className = "center">
+                            <Image className = "UserProfilePic scale-center"
                                 id = 'profile-pic'
                                 src={this.props.profilePicUrl}
                                 rounded
@@ -24,14 +26,26 @@ export default class UserInfo extends Component {
                                     <h1>{this.props.name}</h1>
                                 </Row>
                                 <Row>
-                                    <InputGroup className="mb-3">
+                                    <InputGroup className="UserInfoField">
                                         <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                                            <InputGroup.Text id="username">Username</InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <FormControl
                                             placeholder={this.props.username}
                                             aria-label="Username"
-                                            aria-describedby="basic-addon1"
+                                            aria-describedby="username"
+                                        />
+                                    </InputGroup>
+                                </Row>
+                                <Row>
+                                    <InputGroup className="UserInfoField">
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text id="organization">Organization</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <FormControl
+                                            placeholder={this.props.username}
+                                            aria-label="Organization"
+                                            aria-describedby="organization"
                                         />
                                     </InputGroup>
                                 </Row>
