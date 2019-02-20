@@ -32,7 +32,7 @@ async (req, res, next) => {
     .populate('answers')
     .populate('comments')
     .exec(function (err, thread) {
-      if (err) return handleError(err);
+      if (err) return console.log(err);
       Thread.update(
         {_id: threadId}, 
         {$set: {'views': thread.views + 1}}, )
@@ -47,12 +47,12 @@ async (req, res, next) => {
     var page = req.query.page != null ? req.query.page : 1;
     var category = req.query.category != null ? {category:req.query.category} : null;
 
-    Thread.find(category, '', {limit: 50, sort: '-createdAt'})
+    await Thread.find({}, '', {limit: 50, sort: '-createdAt'})
     .populate('creator')
     .populate('answers')
     .populate('comments')
     .exec(function (err, threads) {
-      if (err) return handleError(err);
+      if (err) console.log(err);
       res.json(threads);
      });
   }
