@@ -1,1 +1,16 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+@import '~@elliemae/ds-basic/styles/themes/theme-default';
+@import '~@elliemae/ds-basic/styles/base/_generic/_generic-dir';
+@import '~@elliemae/ds-basic/styles/base/spacing';
+@import '~@elliemae/ds-basic/styles/base/utility-functions/_functions-base';
+@import '~@elliemae/ds-basic/styles/base/grid';
+@import '~@elliemae/ds-basic/styles/base/color';
+@import '~@elliemae/ds-basic/styles/base/typography';
+@import '~@elliemae/ds-basic/styles/base/border';
+@import '~@elliemae/ds-basic/styles/base/motion';
+@import '~@elliemae/ds-basic/styles/base/depth';
+@import '~@elliemae/ds-basic/styles/base/iconography';
+@import '~@elliemae/ds-basic/styles/base/utility-mixins/_mixins-base';
+@import '~@elliemae/ds-basic/styles/base/_elements/_elements';
+@import '~@elliemae/ds-basic/styles/components/index';
