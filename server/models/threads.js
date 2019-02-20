@@ -12,11 +12,22 @@ const thread = new mongoose.Schema({
     up: ['string'],
     down: ['string'],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-    answers: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-    acceptedAnswer: { type: Schema.Types.ObjectId, ref: 'Comment' }
+    answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
+    acceptedAnswer: { type: Schema.Types.ObjectId, ref: 'Answer' }
 }, {
   timestamps: true
 })
+
+const answer = new mongoose.Schema({
+    creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    body: 'string',
+    karma: { type: Number, default: 0 },
+    up: ['string'],
+    down: ['string'],
+    comments: { type: Schema.Types.ObjectId, ref: 'Comment' },
+    isAcceptedAnswer: {type: Boolean, default: false},
+
+});
 
 const comment = new mongoose.Schema({
     creator: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -24,11 +35,11 @@ const comment = new mongoose.Schema({
     karma: { type: Number, default: 0 },
     up: ['string'],
     down: ['string'],
-    comments: { type: Schema.Types.ObjectId, ref: 'Comment' },
     isAnswer: {type: Boolean, default: false},
     isAcceptedAnswer: {type: Boolean, default: false},
 
 });
 
+mongoose.model('Answer', answer);
 mongoose.model('Comment', comment);
 mongoose.model('Thread', thread);

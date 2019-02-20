@@ -44,7 +44,7 @@ router.post('/', async (req, res, next )=>{
       organization
     });
   
-    const saved = await thread.save() 
+    const saved = await thread.save()
     
     res.json(saved);
 
@@ -63,7 +63,6 @@ router.patch('/:threadId', async (req, res, next) => {
 });
 
 router.post('/:threadId/answers', async (req, res, next) => {
-  const {}
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
@@ -77,7 +76,6 @@ router.post('/:threadId/answers', async (req, res, next) => {
 });
 
 router.post('/:threadId/comments', async (req, res, next) => {
-  const {}
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
