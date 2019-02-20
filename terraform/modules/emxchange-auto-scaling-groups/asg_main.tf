@@ -24,7 +24,7 @@ resource "random_pet" "asg_name" {
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name = "event-${random_pet.asg_name.id}"
+  name = "emxchange-${random_pet.asg_name.id}"
   availability_zones = ["${var.availability_zone}"]
   desired_capacity   = 1
   max_size           = 1
@@ -35,4 +35,17 @@ resource "aws_autoscaling_group" "asg" {
     id      = "${aws_launch_template.asg.id}"
     version = "${aws_launch_template.asg.latest_version}"
   }
+
+}
+
+data "aws_instance" "find" {
+  filter {
+    name   = "tag:aws:autoscaling:groupName"
+    values = ["emxchange-${random_pet.asg_name.id}"]
+  }
+  depends_on = ["aws_autoscaling_group.asg"]
+}
+
+output "i_id" {
+  value = "${data.aws_instance.find.id}"
 }
