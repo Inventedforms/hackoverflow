@@ -6,18 +6,22 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
 
-console.log(process.env.MONGO_URI);
+const db_name = 'emxchange'
+const db_url = `${process.env.MONGO_URI}/${db_name}`
+console.log(`Connected to db url: ${db_url}`);
 
 const app = express();
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(db_url)
 
 const User = require('./models/users.js');
 const Thread = require('./models/threads.js');
+const Tag = require('./models/tags.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const threadsRouter = require('./routes/threads');
 const tagsRouter = require('./routes/tags');
+const searchRouter = require('./routes/search');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +38,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/threads', threadsRouter);
 app.use('/tags', tagsRouter);
+app.use('/search', searchRouter);
 
 
 // catch 404 and forward to error handler

@@ -8,6 +8,7 @@ import "./Profile.css";
 export default class Profile extends Component{
     constructor(props) {
         super(props);
+<<<<<<< HEAD
 
         this.state = {
             name: "test", 
@@ -23,6 +24,9 @@ export default class Profile extends Component{
 
     handleSubmit() {
 
+=======
+        console.log('user id here', props.match.params.userId)
+>>>>>>> refs/remotes/origin/master
     }
 
     render() {

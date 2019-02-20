@@ -14,7 +14,9 @@ export default class Login extends Component {
     }
 
     handleSubmit = event => {
+        this.props.history.push("/profile");
         event.preventDefault();
+
     }
 
     samlLogin = () => {
