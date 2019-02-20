@@ -16,11 +16,31 @@ class QuestionDetails extends Component {
     vote = (voteType, type, id) => {
         console.log(voteType, type, id)
         ApiService.vote(id, type, voteType).then((res) => {
-            if (type === 'answers') {
+            let questionData = {...this.state.questionData};
 
+            if (type === 'answers') {
+                for (let answer of questionData.answers) {
+                    if (answer._id === id) {
+                        if (voteType === 'down') {
+                            answer.down.push('aaa');
+                        } else {
+                            answer.up.push('aaa');
+                        }
+
+                        break;
+                    }
+                }
             } else {
-                //let up =
+                if (voteType === 'down') {
+                    questionData.down.push('aaa');
+                } else {
+                    questionData.up.push('aaa');
+                }
             }
+
+            this.setState({
+                questionData
+            })
         }).catch((error) => {
             console.log(error)
         });

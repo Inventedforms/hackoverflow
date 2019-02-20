@@ -11,7 +11,7 @@ const SingleQuestion = ({question, onClick}) => {
             <div className='questionInfo'>
                 <div className='infoBox'>
                     <div className='number'>
-                        {question.up.length}
+                        {question.up.length - question.down.length}
                     </div>
 
                     <div className='info'>
@@ -60,7 +60,7 @@ const SingleQuestion = ({question, onClick}) => {
             </div>
 
             <div className='ownerInfo'>
-                <a href={`slack://user?team=T2YPRNTU0&id=${question.creator.slack_id}`}>{question.creator.name} </a> 
+                <a href={`slack://user?team=T2YPRNTU0&id=${question.creator.slack_id}`}>{question.creator.name} </a>
                     created at {CommonService.dateHandler(question.createdAt)}
             </div>
         </div>

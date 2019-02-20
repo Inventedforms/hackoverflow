@@ -12,7 +12,7 @@ const SingleCardQuestion = ({data, onClick, type}) => {
                 </div>
 
                 <div className='voteInfo'>
-                    {data.up.length}
+                    {data.up.length - data.down.length}
                 </div>
 
                 <div className='voteInfo' onClick={() => {onClick('down', type, data._id)}}>
