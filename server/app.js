@@ -7,7 +7,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose')
 
 const db_name = 'emxchange'
-const db_url = `${process.env.MONGO_URI}/${db_name}```
+const db_url = `${process.env.MONGO_URI}/${db_name}`
 console.log(`Connected to db url: ${db_url}`);
 
 const app = express();
