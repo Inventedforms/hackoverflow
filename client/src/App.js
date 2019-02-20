@@ -10,8 +10,6 @@ import Login from './components/Authentication/Login';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import Spinner from './components/Spinner/Spinner';
 
-import Header from './components/Header/Header';
-
 class App extends Component {
 
     state = {
@@ -34,22 +32,24 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Spinner data={this.state.spinnerData}/>
-                <Header/>
 
-                <BrowserRouter>
-                    <Switch>
-                        <Route path='/' exact component={Login}/>
-                        <ProtectedRoute path='/profile'
-                                        component={() => <Profile spinnerData={this.changeSpinnerState}/>}/>
-                        <ProtectedRoute path='/question'
-                                        component={() => <Question spinnerData={this.changeSpinnerState}/>}/>
-                        <ProtectedRoute path='/question/:questionId'
-                                        component={() => <Question spinnerData={this.changeSpinnerState}/>}/>
-                        <ProtectedRoute path='/profile/:userId'
-                                        component={() => <Profile spinnerData={this.changeSpinnerState}/>}/>
-                        <Route component={PageNotFound}/>
-                    </Switch>
-                </BrowserRouter>
+                <div style={{height: '100%'}}>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path='/' exact component={Login}/>
+                            <ProtectedRoute path='/profile'
+                                            component={() => <Profile spinnerData={this.changeSpinnerState}/>}/>
+                            <ProtectedRoute path='/question'
+                                            component={() => <Question spinnerData={this.changeSpinnerState}/>}/>
+                            <ProtectedRoute path='/question/:questionId'
+                                            component={() => <Question spinnerData={this.changeSpinnerState}/>}/>
+                            <ProtectedRoute path='/profile/:userId'
+                                            component={() => <Profile spinnerData={this.changeSpinnerState}/>}/>
+                            <Route component={PageNotFound}/>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+
             </React.Fragment>
 
         );
