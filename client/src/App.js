@@ -10,6 +10,8 @@ import Login from './components/Authentication/Login';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import Spinner from './components/Spinner/Spinner';
 
+import Header from './components/Header/Header';
+
 class App extends Component {
 
     state = {
@@ -32,6 +34,7 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Spinner data={this.state.spinnerData}/>
+                <Header/>
 
                 <BrowserRouter>
                     <Switch>

@@ -1,0 +1,27 @@
+.headerContainer {
+  background-color: #007bff;
+  height: 55px;
+  width: 100%;
+  position: fixed;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: white;
+}
+
+.profileImg {
+  border: 1px white solid;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  border-radius: 50%;
+}
