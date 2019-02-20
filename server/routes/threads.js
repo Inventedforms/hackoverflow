@@ -1,19 +1,41 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const { check } = require('express-validator/check');
 
 const Thread = mongoose.model('Thread');
 const Answer = mongoose.model('Answer');
+const Comment = mongoose.model('Comment');
+const User = mongoose.model('User');
+
+var validators = [
+  check('header').exists(),
+  check('creator').custom(value =>{
+    return User.findById(value).then(user =>{
+      if (!user) {
+        return Promise.reject('Invalid user');
+    }});
+  }),
+  check('body').exists(),
+  check('category').exists()]
 
 /* GET thread, without parameter we get all threads.
     e.g. /threads/threadId?page=5&tags=eng,offtopic
 */
-router.get('/:threadId?', async (req, res, next) => {
+router.get('/:threadId?',
+async (req, res, next) => {
   const threadId = req.params.threadId;
   if(threadId != null){
     // send back whole thread
-    await Thread.findById(threadId, function (err, thread) {
-      if (err) return handleError(err);
+    await Thread.findById(threadId)
+    .populate('creator')
+    .populate('answers')
+    .populate('comments')
+    .exec(function (err, thread) {
+      if (err) return console.log(err);
+      Thread.update(
+        {_id: threadId}, 
+        {$set: {'views': thread.views + 1}}, )
       res.json(thread);
     });
   }
@@ -21,28 +43,33 @@ router.get('/:threadId?', async (req, res, next) => {
     // else search all threads matching tags (if applicable) and return header info
     // assume tags is comma-delimited
     // default fetch first 50
-    console.log("hello");
     var tags = req.query.tags;
     var page = req.query.page != null ? req.query.page : 1;
-    var category = req.query.category != null ? req.query.category : '*';
-    Thread.find({category:category}, 'header views karma creator tags', {limit: 50, sort: '-createdAt'}, function (err, threads) {
-      if (err) return handleError(err);
+    var category = req.query.category != null ? {category:req.query.category} : null;
+
+    await Thread.find({}, '', {limit: 50, sort: '-createdAt'})
+    .populate('creator')
+    .populate('answers')
+    .populate('comments')
+    .exec(function (err, threads) {
+      if (err) console.log(err);
       res.json(threads);
      });
   }
 });
 
-router.post('/', async (req, res, next )=>{
+router.route('/').post(validators, async (req, res, next )=>{
   try {
 
-    const {header, creator, category, body, organization} = req.body
+    const {header, creator, category, body, organization, tags} = req.body
 
     const thread = new Thread({
       header,
       creator,
       body,
       category,
-      organization
+      organization,
+      tags
     });
   
     const saved = await thread.save()
@@ -55,7 +82,7 @@ router.post('/', async (req, res, next )=>{
 });
 
 // update thread body/header or karma. nothing else can be added
-router.patch('/:threadId', async (req, res, next) => {
+router.patch('/:threadId',validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findOneAndUpdate({_id:threadId}, req.body, function (err, thread) {
       if (err) return handleError(err);
@@ -65,38 +92,48 @@ router.patch('/:threadId', async (req, res, next) => {
 });
 
 // add an answer
-router.post('/:threadId/answers', async (req, res, next) => {
+router.post('/:threadId/answers', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
+    Thread.findById(req.params.threadId, async (err, thread)=> {
       if (err) return handleError(err);
-      Answer.save(req.body);
-      thread.answers.push(req.body);
+      const {creator, body}= req.body;
+      const comment = new Answer({creator, body})
+      saved = await comment.save();
+      thread.answers.push(saved);
+      console.log(thread);
+      saved = await Thread.findOneAndUpdate({_id:req.params.threadId}, {answers: thread.answers}, function(err, result){
+        if(err) return handleError(err);
+        res.json(result)
+      })
     });
-  
   }
   else {
     res.err("Please specify a thread ID");
   }
 });
 
-router.patch('/:threadId/answers/:answerId', async (req, res, next) => {
-  if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
-      if (err) return handleError(err);
-      thread.answers.push(req.body);
-    });
-  
+router.patch('/:threadId/answers/:answerId', validators.slice(1, 3), async (req, res, next) => {
+  if(req.params.threadId != null && req.params.answerId != null){
+    Answer.findOneAndUpdate(req.params.answerId, req.body);
   }
   else {
     res.err("Please specify a thread ID");
   }
 });
 
-router.post('/:threadId/comments', async (req, res, next) => {
+router.post('/:threadId/comments',validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
+    Thread.findById(req.params.threadId, async (err, thread)=> {
       if (err) return handleError(err);
-      thread.comments.push();
+      const {creator, body}= req.body;
+      const comment = new Comment({creator, body})
+      saved = await comment.save();
+      thread.comments.push(saved);
+      console.log(thread);
+      saved = await Thread.findOneAndUpdate({_id:req.params.threadId}, {comments: thread.comments}, function(err, result){
+        if(err) return handleError(err);
+        res.json(result)
+      })
     });
   
   }
@@ -104,12 +141,9 @@ router.post('/:threadId/comments', async (req, res, next) => {
     res.err("Please specify a thread ID");
   }
 });
-router.patch('/:threadId/comments/:commentId', async (req, res, next) => {
-  if(req.params.threadId != null){
-    Thread.findById(threadId, function (err, thread) {
-      if (err) return handleError(err);
-      thread.answers.push(req.body);
-    });
+router.patch('/:threadId/comments/:commentId', validators.slice(1, 3), async (req, res, next) => {
+  if(req.params.threadId != null && req.params.commentId != null){
+    Comment.findOneAndUpdate(req.params.commentId, req.body);
   
   }
   else {

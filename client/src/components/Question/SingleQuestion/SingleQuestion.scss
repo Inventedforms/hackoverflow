@@ -1,0 +1,87 @@
+.singleQuestionContainer {
+  display: flex;
+  padding: 5px 0;
+  margin: 0 10px;
+  border-bottom: 1px solid lightgray;
+  height: 60px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+}
+
+.singleQuestionContainer:hover {
+  background-color: lightgray;
+  opacity: 0.8;
+}
+
+.questionInfo {
+  height: 100%;
+  width: 200px;
+  display: flex;
+
+  .infoBox {
+    width: 33%;
+    height: 100%;
+    display: inline;
+
+    .number {
+      height: 65%;
+      width: 100%;
+      font-size: medium;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .info {
+      height: 35%;
+      width: 100%;
+      font-size: small;
+      color: gray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.questionTitle {
+  height: 100%;
+  width: 100%;
+  display: inline;
+
+  .title {
+    height: 65%;
+    width: 100%;
+    font-size: medium;
+    display: flex;
+    align-items: center;
+  }
+
+  .tagList {
+    height: 35%;
+    width: 100%;
+
+    .tag {
+      font-size: smaller;
+      height: 100%;
+      padding: 2px;
+      background-color: powderblue;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      box-sizing: border-box;
+      margin-right: 5px;
+    }
+  }
+}
+
+.ownerInfo {
+  position: absolute;
+  display: block;
+  bottom: 2px;
+  right: 8px;
+  color: gray;
+  font-size: smaller;
+}

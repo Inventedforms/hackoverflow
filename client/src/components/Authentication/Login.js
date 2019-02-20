@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Form} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import "./Login.css";
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
+
+        console.log('=======', this.props)
     }
 
     handleChange = event => {
@@ -25,7 +27,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Login">
                 <form onSubmit={this.handleSubmit}>
                     <Button
                         block

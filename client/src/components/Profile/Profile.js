@@ -2,86 +2,118 @@ import React, {Component} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import UserInfo from './UserInfo';
 import Skills from './Skills';
+import Header from './../Header/Header';
+import { Redirect } from 'react-router-dom';
 
 import "./Profile.css";
 
 export default class Profile extends Component{
     constructor(props) {
         super(props);
-       // console.log('user id here', this.props.match.params.userId)
-    
+        
     this.state = {
-            displayName: "Rishabh Prakash",
-            username: "rprakash",
-            profilePicUrl: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-            skills: [
-                "test1",
-                "test2",
-                "test3"
-            ]
+            displayName: "",
+            username: "",
+            organization: "",
+            profilePicUrl: "https://s3-us-west-1.amazonaws.com/team-2-emxhange/15-15cm-car-sticker-cool-Heisenberg-cartoon-celebrity-Car-window-car-body-Bumper-Vinyl-sticker-Black.jpg_640x640.png",
+            skills: [],
+            toQuestion: false,
+            userId: "5c6d11eef0de7e4d66b1c9e4"
         }
     }
 
     componentDidMount() {
 
-        let user = {
-            displayName: "Rishabh Prakash",
-            username: "rprakash",
-            profilePicUrl: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-            skills: [
-                "test1",
-                "test2",
-                "test3"
-            ]
-        };
+        let userUrl = 'http://localhost:5000/users/' + this.state.userId;
 
+        fetch(userUrl)  
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                this.setState({
+                    username: result.screen_name,
+                    displayName: result.name,
+                    organization: result.organization,
+                    //profilePicUrl:  result.profile_picture,
+                    skills: result.tags
+                 })
+        });
+    }
+
+    handleSubmit = () => {
         this.setState({
-            name: user.displayName,
-            displayName: user.displayName,
-            profilePicUrl: user.profilePicUrl,
-            skills: user.skills
+            toQuestion: true
         })
+        console.log(this.state.toQuestion);
+    }
+
+    handleEdit() {
+
     }
 
     render() {
+        if (this.state.toQuestion) {
+            return (
+                 <Redirect to='/question'/>
+        )}
+
         return (
-            <div>
-                <Container>
-                    <Row>
-                        <Col sm = {12}>
-                            <UserInfo 
-                                name={this.state.name} 
-                                username={this.state.screenName}
-                                profilePicUrl={this.state.profilePicUrl}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm={12}>
-                            <Skills
-                                skills={this.state.skills}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm={4}/>
-                        <Col sm={4}>
-                            <form onSubmit={this.handleSubmit}>
-                                <Button
-                                    block
-                                    size="md"
-                                    disabled={false}
-                                    type="submit"
-                                >
-                                    Save 
-                                </Button>
-                            </form>
-                        </Col>
-                        <Col sm={4}/>
-                    </Row>
-                </Container>
-                
-            </div>
+            <React.Fragment>
+                <Header/>
+
+                <div style={{marginTop: '60px'}} className = "UserProfile">
+                    <Container>
+                        <Row>
+                            <Col sm = {12}>
+                                <UserInfo
+                                    name={this.state.displayName}
+                                    username={this.state.username}
+                                    organization={this.state.organization}
+                                    profilePicUrl={this.state.profilePicUrl}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={12}>
+                                <Skills
+                                    skills={this.state.skills}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={7}/>
+                            <Col sm={3}>
+                                <form>
+                                    <Button
+                                        className = "form-button"
+                                        block
+                                        size="lg"
+                                        disabled={false}
+                                        onClick = {this.handleSubmit}
+                                        variant="primary"
+                                    >
+                                        Save and Continue
+                                    </Button>
+                                </form>
+                            </Col>
+                            <Col sm={2}>
+                                <form>
+                                    <Button
+                                        className = "form-button"
+                                        block
+                                        size="lg"
+                                        disabled={false}
+                                        onClick = {this.handleEdit}
+                                        variant="secondary"
+                                    >
+                                        Edit
+                                    </Button>
+                                </form>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            </React.Fragment>
         );
     }
 }

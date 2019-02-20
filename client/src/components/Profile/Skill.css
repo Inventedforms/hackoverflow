@@ -1,0 +1,13 @@
+.Skill {
+
+    display: inline-block;
+    margin-right: 1%;
+    margin-top: 1%;
+    width: 19%;
+}
+
+.search-bar {
+
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
