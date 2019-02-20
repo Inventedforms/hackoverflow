@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import './Skills.css';
 
 
 
@@ -13,7 +14,7 @@ export default class Skills extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Skills">
                 <Container>
                     <Row>
                         <Col sm={12}>

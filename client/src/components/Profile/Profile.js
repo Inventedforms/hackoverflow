@@ -8,22 +8,39 @@ import "./Profile.css";
 export default class Profile extends Component{
     constructor(props) {
         super(props);
-
-        this.state = {
-            name: "test", 
-            screenName: "test", 
-            profilePicUrl: "",
-            skills: ["test1", "test2", "test3"]
-        };
-        console.log('user id here', props.match.params.userId)
+       // console.log('user id here', this.props.match.params.userId)
+    
+    this.state = {
+            displayName: "Rishabh Prakash",
+            username: "rprakash",
+            profilePicUrl: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            skills: [
+                "test1",
+                "test2",
+                "test3"
+            ]
+        }
     }
 
     componentDidMount() {
-        //api call to get name, screename, profilePicUrl, skills
-    }
 
-    handleSubmit() {
+        let user = {
+            displayName: "Rishabh Prakash",
+            username: "rprakash",
+            profilePicUrl: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            skills: [
+                "test1",
+                "test2",
+                "test3"
+            ]
+        };
 
+        this.setState({
+            name: user.displayName,
+            displayName: user.displayName,
+            profilePicUrl: user.profilePicUrl,
+            skills: user.skills
+        })
     }
 
     render() {
