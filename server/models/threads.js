@@ -19,6 +19,7 @@ const thread = new mongoose.Schema({
 }, {
   timestamps: true
 })
+thread.index({header: 'text', body: 'text'});
 
 const answer = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -30,6 +31,7 @@ const answer = new mongoose.Schema({
     lastEdited:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 });
+answer.index({header: 'text', body: 'text'});
 
 const comment = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -40,6 +42,7 @@ const comment = new mongoose.Schema({
     lastEdited:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 });
+comment.index({header: 'text', body: 'text'});
 
 mongoose.model('Answer', answer);
 mongoose.model('Comment', comment);
