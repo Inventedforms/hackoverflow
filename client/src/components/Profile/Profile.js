@@ -17,11 +17,22 @@ export default class Profile extends Component{
     this.state = {
             displayName: "Rishabh Prakash",
             username: "rprakash",
-            profilePicUrl: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            organization: "Product",
+            profilePicUrl: "https://s3-us-west-1.amazonaws.com/team-2-emxhange/15-15cm-car-sticker-cool-Heisenberg-cartoon-celebrity-Car-window-car-body-Bumper-Vinyl-sticker-Black.jpg_640x640.png",
             skills: [
-                "test1",
-                "test2",
-                "test3"
+                {
+                    _id: "5c6d1607f0de7e4d66b1c9e7",
+                    name: "EPC"
+                },
+                {
+                    _id: "5c6d160df0de7e4d66b1c9e8",
+                    name: "EBS"
+                },
+                {
+                    _id: "5c6d1614f0de7e4d66b1c9e9",
+                    name: "Jenkins"
+                }
+                
             ]
         }
     }
@@ -59,8 +70,9 @@ export default class Profile extends Component{
                         <Row>
                             <Col sm = {12}>
                                 <UserInfo
-                                    name={this.state.name}
-                                    username={this.state.screenName}
+                                    name={this.state.displayName}
+                                    username={this.state.username}
+                                    organization={this.state.organization}
                                     profilePicUrl={this.state.profilePicUrl}
                                 />
                             </Col>
@@ -73,20 +85,19 @@ export default class Profile extends Component{
                             </Col>
                         </Row>
                         <Row>
-                            <Col sm={4}/>
-                            <Col sm={4}>
+                            <Col sm={12}>
                                 <form onSubmit={this.handleSubmit}>
                                     <Button
                                         block
-                                        size="md"
+                                        size="lg"
                                         disabled={false}
                                         type="submit"
+                                        variant="primary"
                                     >
                                         Save
                                     </Button>
                                 </form>
                             </Col>
-                            <Col sm={4}/>
                         </Row>
                     </Container>
                 </div>
