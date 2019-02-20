@@ -18,21 +18,33 @@ router.post('/:entity/:id/vote', async (req, res, next) => {
   try {
 
     const {entity, id} = req.params
-    const voteType = req.body.type
-    const user_id = req.get('user_id')
+    const voteType = req.body.voteType
+    
+    const user_id = req.get('user_id')    
 
     let entityName = capitalizeFirstLetter(entity)
     entityName = entityName.slice(0, -1);
-    console.log(entityName);
+    
+    const DBModel = mongoose.model(entityName);
+    let saved = ""
+    if (voteType == 'up') {
+      saved = await DBModel.updateOne(
+        {_id: id},
+        {$push: { up: user_id}}
+        )
+    } else if (voteType == 'down') {
+      saved = await DBModel.updateOne(
+        {_id: id},
+        {$push: { down: user_id}}
+        )
+    }
     
 
-    const DBModel = mongoose.model(entityName);
+    // const data = await DBModel.findById(id)
+    
+    // data[voteType].push()
 
-    const data = await DBModel.findById(id)
-
-    data[voteType].push(user_id)
-
-    const saved = await data.save()
+    // const saved = await data.save()
 
     res.send(saved)
 

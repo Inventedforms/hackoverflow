@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
+var cors = require('cors');
 
 const db_name = 'emxchange'
 const db_url = `${process.env.MONGO_URI}/${db_name}`
@@ -12,6 +13,7 @@ console.log(`Connected to db url: ${db_url}`);
 
 const app = express();
 mongoose.connect(db_url)
+app.use(cors());
 
 const User = require('./models/users.js');
 const Thread = require('./models/threads.js');
@@ -33,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
