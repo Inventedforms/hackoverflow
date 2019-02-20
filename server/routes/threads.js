@@ -42,7 +42,7 @@ async (req, res, next) => {
     var tags = req.query.tags;
     var page = req.query.page != null ? req.query.page : 1;
     var category = req.query.category != null ? {category:req.query.category} : null;
-    Thread.find(category, 'header views karma creator tags', {limit: 50, sort: '-createdAt'}, function (err, threads) {
+    Thread.find(category, '', {limit: 50, sort: '-createdAt'}, function (err, threads) {
       if (err) return handleError(err);
       res.json(threads);
      });
