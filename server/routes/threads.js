@@ -61,14 +61,15 @@ async (req, res, next) => {
 router.route('/').post(validators, async (req, res, next )=>{
   try {
 
-    const {header, creator, category, body, organization} = req.body
+    const {header, creator, category, body, organization, tags} = req.body
 
     const thread = new Thread({
       header,
       creator,
       body,
       category,
-      organization
+      organization,
+      tags
     });
   
     const saved = await thread.save()
