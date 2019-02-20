@@ -14,7 +14,7 @@ class App extends Component {
 
     state = {
         spinnerData: {
-            show: true,
+            show: false,
             message: 'Loading, please wait...'
         }
     };
