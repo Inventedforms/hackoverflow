@@ -33,7 +33,7 @@ class App extends Component {
             <React.Fragment>
                 <Spinner data={this.state.spinnerData}/>
 
-                <div style={{height: '100%'}}>
+                <div>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Login}/>
