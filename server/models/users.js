@@ -7,6 +7,7 @@ const user = new mongoose.Schema({
     organization: 'string',
     karma: {type: Number, default: 0},
     profile_picture: {type: String, default: ''},
+    tags: [{type: String, default: ''}],
 }, {
   timestamps: true
 })
