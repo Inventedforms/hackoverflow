@@ -9,13 +9,13 @@ const Comment = mongoose.model('Comment');
 const User = mongoose.model('User');
 
 var validators = [
+  check('header').exists(),
   check('creator').custom(value =>{
     return User.findById(value).then(user =>{
       if (!user) {
         return Promise.reject('Invalid user');
     }});
   }),
-  check('header').exists(),
   check('body').exists(),
   check('category').exists()]
 
@@ -49,7 +49,7 @@ async (req, res, next) => {
   }
 });
 
-router.post('/', validators, async (req, res, next )=>{
+router.route('/').post(validators, async (req, res, next )=>{
   try {
 
     const {header, creator, category, body, organization} = req.body
@@ -82,21 +82,20 @@ router.patch('/:threadId',validators.slice(1, 3), async (req, res, next) => {
 });
 
 // add an answer
-router.post('/:threadId/answers', validators.slice(), async (req, res, next) => {
+router.post('/:threadId/answers', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
       Answer.save(req.body);
       thread.answers.push(req.body);
     });
-  
   }
   else {
     res.err("Please specify a thread ID");
   }
 });
 
-router.patch('/:threadId/answers/:answerId', async (req, res, next) => {
+router.patch('/:threadId/answers/:answerId', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null && req.params.answerId != null){
     Answer.findOneAndUpdate(req.params.answerId, req.body);
   
@@ -106,7 +105,7 @@ router.patch('/:threadId/answers/:answerId', async (req, res, next) => {
   }
 });
 
-router.post('/:threadId/comments',[], async (req, res, next) => {
+router.post('/:threadId/comments',validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null){
     Thread.findById(threadId, function (err, thread) {
       if (err) return handleError(err);
@@ -119,7 +118,7 @@ router.post('/:threadId/comments',[], async (req, res, next) => {
     res.err("Please specify a thread ID");
   }
 });
-router.patch('/:threadId/comments/:commentId', async (req, res, next) => {
+router.patch('/:threadId/comments/:commentId', validators.slice(1, 3), async (req, res, next) => {
   if(req.params.threadId != null && req.params.commentId != null){
     Comment.findOneAndUpdate(req.params.commentId, req.body);
   
